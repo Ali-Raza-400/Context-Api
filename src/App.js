@@ -1,24 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
-
+import Child from './Child';
+import React, { createContext, useState } from 'react';
+import OtherChild from './OtherChild';
+export const GlobalInfo=createContext();
 function App() {
+  const[day,setDay]=useState("Monday")
+  const getday=(item)=>{
+    setDay(item)
+    console.warn(item);
+  }
+  const[color,setColor]=useState('green')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   <GlobalInfo.Provider value={{appColor:color,getday:getday}}>
+     <div className='App'>
+      <h1>I am Parent {day}</h1>
+      <Child />
+      <OtherChild/>
     </div>
+   </GlobalInfo.Provider>
   );
 }
 
